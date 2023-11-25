@@ -1,4 +1,0 @@
-# Created at 2023-11-24T23:54:54.777
-Boot Manifest-JAR contains absolute paths in classpath 'D:\Automation\TransGridAutomation\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-
