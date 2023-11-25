@@ -1,0 +1,7 @@
+Feature: Testing a REST API with Karate
+
+Scenario: Testing valid GET endpoint
+Given url "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=d570KjJSQUfUwrGko8qibLZQ6fQ6ASAC&q=pune"
+When method GET
+Then status 200
+And match $ == {id:"1234",name:"John Smith"}
