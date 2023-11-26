@@ -1,5 +1,8 @@
 package com.transgrid.stepdef;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.transgrid.api.core.HttpOperation;
 import com.transgrid.api.pojo.Request;
 
@@ -15,7 +18,7 @@ public class WeatherStepDef {
     Response response;
     @Given("i want to get weather")
     public void iWantToGetWeather() {
-        request = Request.getRequestFromBody("weatherapi");
+        request = Request.getRequestFromProperty("weatherapi");
     }
 
     @When("i send get request")
@@ -27,5 +30,6 @@ public class WeatherStepDef {
     @Then("response is received successfully")
     public void responseIsReceivedSuccessfully() {
         Assert.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, "this is a step");
     }
 }

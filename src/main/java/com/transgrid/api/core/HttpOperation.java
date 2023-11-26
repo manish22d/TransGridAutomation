@@ -20,11 +20,14 @@ public class HttpOperation {
         if(!request.getPathParam().isEmpty()) requestSpecification.pathParams(request.getPathParam());
         if(!request.getHeaders().isEmpty()) requestSpecification.headers(request.getHeaders());
         if (request.isLogging()) requestSpecification.log().all();
+        if (!request.getRequestBody().isEmpty())requestSpecification.body(request.getRequestBody());
+
         Response response = switch (request.getMethod()) {
             case GET -> requestSpecification.get(request.getEndPoint());
             case POST -> requestSpecification.contentType(ContentType.JSON).post(request.getEndPoint());
             case DELETE -> requestSpecification.delete(request.getEndPoint());
             case PUT -> requestSpecification.put(request.getEndPoint());
+            case PATCH -> requestSpecification.patch(request.getEndPoint());
         };
         if(request.isLogging()) response.then().log().all();
         return response;

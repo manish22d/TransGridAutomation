@@ -1,10 +1,15 @@
 package com.transgrid.api.pojo;
 
+import com.google.gson.JsonParser;
+import com.jayway.jsonpath.JsonPath;
 import com.transgrid.api.constants.AuthType;
 import com.transgrid.api.constants.Method;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -23,14 +28,14 @@ public class Request {
     Map<String, String> authParam = new HashMap<>();
     boolean logging;
 
-    public static Request getRequestFromBody(String apiName) {
+    public static Request getRequestFromProperty(String apiName) {
         apiName = apiName.endsWith(".properties") ? apiName : apiName.concat(".properties");
         InputStream is = ClassLoader.getSystemResourceAsStream("apiConfig/" + apiName);
         Properties prop = new Properties();
         try {
             prop.load(is);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("Given Property file is not found -> "+apiName);
         }
         Request request = new Request();
         request.setBaseUri(prop.getProperty("api.baseurl"));
@@ -43,6 +48,16 @@ public class Request {
         request.setHeaders(prop.entrySet().stream().filter(set-> set.getKey().toString().startsWith("api.headers.")).collect(Collectors.toMap(entry -> entry.getKey().toString().replace("api.headers.",""), entry -> entry.getValue().toString())));
         request.setQueryParam(prop.entrySet().stream().filter(set-> set.getKey().toString().startsWith("api.queryparam.")).collect(Collectors.toMap(entry -> entry.getKey().toString().replace("api.queryparam.",""), entry -> entry.getValue().toString())));
         request.setPathParam(prop.entrySet().stream().filter(set-> set.getKey().toString().startsWith("api.pathparam.")).collect(Collectors.toMap(entry -> entry.getKey().toString().replace("api.pathparam.",""), entry -> entry.getValue().toString())));
+
+
+        if(!prop.getProperty("requestBody").isEmpty()) {
+            try {
+                request.setRequestBody(IOUtils.resourceToString(prop.getProperty("requestBody"), Charset.defaultCharset()));
+            } catch (IOException e) {
+                throw new RuntimeException("Could not found given file -> "+prop.getProperty("requestBody"));
+            }
+
+        }
         return request;
     }
 
@@ -154,5 +169,11 @@ public class Request {
 
                 ", logging=" + logging +
                 '}';
+    }
+
+    public void updateRequest(String path, String userId) {
+//        JsonPath.from(requestBody).setRootPath()
+        requestBody = JsonPath.parse(requestBody).set(path, userId).jsonString();
+
     }
 }

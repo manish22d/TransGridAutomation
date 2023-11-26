@@ -3,7 +3,7 @@ package com.transgrid.api.constants;
 import org.apache.commons.lang3.EnumUtils;
 
 public enum Method {
-    GET("get"), POST("post"), DELETE("delete"), PUT("put");
+    GET("get"), POST("post"), DELETE("delete"), PUT("put"), PATCH("patch");
     String name;
     Method(String name){
         this.name=name;

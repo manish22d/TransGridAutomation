@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestRequest {
     @Test
     public void request(){
-        Request request = Request.getRequestFromBody("weatherapi");
+        Request request = Request.getRequestFromProperty("weatherapi");
         System.out.println(request);
         HttpOperation httpOperation = new HttpOperation();
         Response response = httpOperation.execute(request);
