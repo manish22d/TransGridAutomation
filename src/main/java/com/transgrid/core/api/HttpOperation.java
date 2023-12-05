@@ -1,7 +1,7 @@
-package com.transgrid.api.core;
+package com.transgrid.core.api;
 
-import com.transgrid.api.constants.AuthType;
-import com.transgrid.api.pojo.Request;
+import com.transgrid.constants.AuthType;
+import com.transgrid.pojo.Request;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

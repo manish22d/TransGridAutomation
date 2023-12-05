@@ -1,7 +1,7 @@
 package com.transgrid.stepdef;
 
-import com.transgrid.api.core.HttpOperation;
-import com.transgrid.api.pojo.Request;
+import com.transgrid.core.api.HttpOperation;
+import com.transgrid.pojo.Request;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

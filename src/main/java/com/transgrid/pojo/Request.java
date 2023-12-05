@@ -1,9 +1,8 @@
-package com.transgrid.api.pojo;
+package com.transgrid.pojo;
 
-import com.google.gson.JsonParser;
 import com.jayway.jsonpath.JsonPath;
-import com.transgrid.api.constants.AuthType;
-import com.transgrid.api.constants.Method;
+import com.transgrid.constants.AuthType;
+import com.transgrid.constants.Method;
 
 import org.apache.commons.io.IOUtils;
 
@@ -50,7 +49,7 @@ public class Request {
         request.setPathParam(prop.entrySet().stream().filter(set-> set.getKey().toString().startsWith("api.pathparam.")).collect(Collectors.toMap(entry -> entry.getKey().toString().replace("api.pathparam.",""), entry -> entry.getValue().toString())));
 
 
-        if(!prop.getProperty("requestBody").isEmpty()) {
+        if(!prop.getProperty("requestBody", "").isEmpty()) {
             try {
                 request.setRequestBody(IOUtils.resourceToString(prop.getProperty("requestBody"), Charset.defaultCharset()));
             } catch (IOException e) {

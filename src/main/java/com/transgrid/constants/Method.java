@@ -1,4 +1,4 @@
-package com.transgrid.api.constants;
+package com.transgrid.constants;
 
 import org.apache.commons.lang3.EnumUtils;
 

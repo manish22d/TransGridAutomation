@@ -1,4 +1,4 @@
-package com.transgrid.api.constants;
+package com.transgrid.constants;
 
 public class Endpoints {
     public static final String BOOKS = "/books";
